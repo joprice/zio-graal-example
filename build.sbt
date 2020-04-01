@@ -4,6 +4,8 @@ val Specs2Version = "4.7.0"
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 
+lazy val graalLocalBuild = settingKey[Boolean]("Whether to build locally or with docker")
+
 lazy val root = (project in file("."))
   .settings(
     organization := "ZIO",
@@ -15,16 +17,27 @@ lazy val root = (project in file("."))
       "dev.zio"    %% "zio"         % ZioVersion,
       "org.specs2" %% "specs2-core" % Specs2Version % "test"
     ),
-    graalVMNativeImageGraalVersion := Some("20.0.0"),
+    graalLocalBuild := true,
+    graalVMNativeImageGraalVersion := {
+      if (graalLocalBuild.value) None
+      else Some("20.0.0")
+    },
+    graalVMNativeImageCommand :=
+      sys.env.get("GRAAL_NATIVE_IMAGE")
+        .getOrElse(graalVMNativeImageCommand.value),
     graalVMNativeImageOptions ++= Seq(
-      "--static",
       "-H:+AddAllCharsets",
       "--no-fallback",
-      //"--allow-incomplete-classpath",
       "-H:+ReportExceptionStackTraces",
       "-H:EnableURLProtocols=http,https"
+      //"--allow-incomplete-classpath",
       //"-H:ReflectionConfigurationFiles=/opt/graalvm/stage/resources/reflection.json"
-    )
+    ) ++ {
+      if (scala.util.Properties.isMac)
+        Seq.empty
+      else
+        Seq("--static")
+    }
   )
     .enablePlugins(GraalVMNativeImagePlugin)
 
