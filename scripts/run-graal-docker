@@ -1,0 +1,1 @@
+docker run -w /data -v `pwd`:/data --rm ubuntu ./target/graalvm-native-image/zio-awesome-project
