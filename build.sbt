@@ -29,10 +29,15 @@ lazy val root = (project in file("."))
       "-H:+AddAllCharsets",
       "--no-fallback",
       "-H:+ReportExceptionStackTraces",
-      "-H:EnableURLProtocols=http,https"
+      "-H:EnableURLProtocols=http,https",
       //"--allow-incomplete-classpath",
-      //"-H:ReflectionConfigurationFiles=/opt/graalvm/stage/resources/reflection.json"
+      "-H:ReflectionConfigurationFiles=/opt/graalvm/stage/resources/reflection.json"
     ) ++ {
+      val file =
+      if (graalLocalBuild.value) s"${baseDirectory.value}/src/graal/reflection.json"
+      else "/opt/graalvm/stage/resources/reflection.json"
+      Seq(s"-H:ReflectionConfigurationFiles=$file")
+    } ++ {
       if (scala.util.Properties.isMac)
         Seq.empty
       else
