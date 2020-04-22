@@ -20,9 +20,11 @@ object Main extends App {
   val managedFile: Managed[IOException, Source] = Managed.make(openFile("data.json"))(closeFile)
 
   val myAppLogic: ZIO[Console, Throwable, Unit] =
-    managedFile.use { file =>
-      for {
-      _ <- putStrLn(file.mkString)
-      } yield ()
-    }
+    for {
+      result <- managedFile.use { file =>
+        for {
+        _ <- putStrLn(file.mkString)
+        } yield ()
+      }
+    } yield result
 }

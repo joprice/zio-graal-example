@@ -41,12 +41,8 @@ lazy val root = (project in file("."))
   )
     .enablePlugins(GraalVMNativeImagePlugin)
 
-// Refine scalac params from tpolecat
-scalacOptions --= Seq(
-  "-Xfatal-warnings"
-)
-
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
+addCompilerPlugin("io.tryp" % "splain" % "0.5.1" cross CrossVersion.patch)
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias("chk", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck")
