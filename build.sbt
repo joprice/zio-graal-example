@@ -34,6 +34,7 @@ lazy val root = (project in file("."))
       "-H:+ReportExceptionStackTraces",
       "-H:EnableURLProtocols=http,https",
       "--initialize-at-build-time",
+      "--initialize-at-build-time=scala.runtime.Statics$VM",
       "--allow-incomplete-classpath",
       //"-H:ReflectionConfigurationFiles=/opt/graalvm/stage/resources/reflection.json"
     ) ++ {
