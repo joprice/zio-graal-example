@@ -6,7 +6,7 @@ import caliban._
 import zio.console.putStrLn
 import zio.{ App, ZEnv, ZIO }
 
-object UzApp extends App {
+object UzHttpApp extends App {
 
   override def run(args: List[String]): ZIO[ZEnv, Nothing, Int] =
     (for {

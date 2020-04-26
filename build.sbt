@@ -43,7 +43,8 @@ lazy val root = (project in file("."))
       else
         Seq("--static")
     },
-    mainClass in Compile := Some("com.joprice.Http4sApp")
+    mainClass in Compile := Some("com.joprice.UzHttpApp")
+    //mainClass in Compile := Some("com.joprice.Http4sApp")
   )
     .enablePlugins(GraalVMNativeImagePlugin)
 
