@@ -11,6 +11,7 @@ lazy val root = (project in file("."))
     organization := "ZIO",
     name := "zio-graal-example",
     version := "0.0.1",
+    // 2.13 has issues with graal atm
     //TODO: try inline on 2.13.2 with jdk 14
     scalaVersion := "2.12.11",
     maxErrors := 3,
