@@ -12,7 +12,7 @@ lazy val root = (project in file("."))
     name := "zio-graal-example",
     version := "0.0.1",
     //TODO: try inline on 2.13.2 with jdk 14
-    scalaVersion := "2.13.1",
+    scalaVersion := "2.12.11",
     maxErrors := 3,
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % zioVersion,
@@ -47,7 +47,7 @@ lazy val root = (project in file("."))
   )
     .enablePlugins(GraalVMNativeImagePlugin)
 
-addCompilerPlugin("io.tryp" % "splain" % "0.5.3" cross CrossVersion.patch)
+//addCompilerPlugin("io.tryp" % "splain" % "0.5.3" cross CrossVersion.patch)
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias("chk", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck")

@@ -1,1 +1,1 @@
-docker run -w /data -v `pwd`:/data --rm ubuntu ./target/graalvm-native-image/zio-graal-example
+docker run -it --init -p 8088:8088 -w /data -v `pwd`:/data --rm ubuntu ./target/graalvm-native-image/zio-graal-example

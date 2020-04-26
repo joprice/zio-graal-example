@@ -22,7 +22,7 @@ object Http4sApp extends CatsApp {
       blocker     <- ZIO.access[Blocking](_.get.blockingExecutor.asEC).map(Blocker.liftExecutionContext)
       interpreter <- ExampleApi.api.interpreter
       result <- BlazeServerBuilder[ExampleTask]
-                .bindHttp(8088, "localhost")
+                .bindHttp(8088, "0.0.0.0")
                 .withHttpApp(
                   Router[ExampleTask](
                     "/api/graphql" -> CORS(Http4sAdapter.makeHttpService(interpreter)),
