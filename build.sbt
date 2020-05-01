@@ -6,9 +6,20 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 
 lazy val graalLocalBuild = settingKey[Boolean]("Whether to build locally or with docker")
 
-lazy val root = (project in file("."))
+lazy val client = project
   .settings(
-    organization := "ZIO",
+    scalaVersion := "2.12.11",
+    libraryDependencies ++= Seq(
+      "dev.zio" %% "zio" % zioVersion,
+      "com.github.ghostdogpr" %% "caliban" % calibanVersion,
+      "com.github.ghostdogpr" %% "caliban-client" % calibanVersion
+    )
+  )
+
+lazy val root = (project in file("."))
+  .aggregate(client)
+  .settings(
+    organization := "com.joprice",
     name := "zio-graal-example",
     version := "0.0.1",
     // 2.13 has issues with graal atm
@@ -19,7 +30,8 @@ lazy val root = (project in file("."))
       "dev.zio" %% "zio" % zioVersion,
       "com.github.ghostdogpr" %% "caliban" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
-      "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion
+      "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion,
+      "com.github.ghostdogpr" %% "caliban-client" % calibanVersion
     ),
     graalLocalBuild := true,
     graalVMNativeImageGraalVersion := {
@@ -47,9 +59,13 @@ lazy val root = (project in file("."))
     mainClass in Compile := Some("com.joprice.UzHttpApp")
     //mainClass in Compile := Some("com.joprice.Http4sApp")
   )
-    .enablePlugins(GraalVMNativeImagePlugin)
+    .enablePlugins(GraalVMNativeImagePlugin, CodegenPlugin)
 
 //addCompilerPlugin("io.tryp" % "splain" % "0.5.3" cross CrossVersion.patch)
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias("chk", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck")
+addCommandAlias("printSchema", "runMain com.joprice.PrintSchema")
+addCommandAlias("generateClient", "calibanGenClient schema.graphql client/src/main/scala/Client.scala")
+addCommandAlias("generateSchema", "calibanGenSchema schema.graphql client/src/main/scala/Schema.scala")
+addCommandAlias("updateCodegen", ";printSchema ;generateClient; generateSchema")

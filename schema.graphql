@@ -1,0 +1,16 @@
+schema {
+  query: Queries
+}
+
+type Post {
+  similar(limit: Int!, offset: Int): [Post!]!
+}
+
+type Queries {
+  users: [User!]!
+  posts: [Post!]!
+}
+
+type User {
+  similar(limit: Int!): [User!]!
+}
