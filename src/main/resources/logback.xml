@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %msg%n</pattern>
+    </encoder>
+  </appender>
+  <!-- quiets noisy logging when accepting a connection -->
+  <logger name="org.http4s.blaze.channel.nio1.NIO1SocketServerGroup" level="ERROR"/>
+  <!-- quiets noisy logging shutting down -->
+  <logger name="org.http4s.blaze.channel.nio1.SelectorLoop" level="ERROR"/>
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
