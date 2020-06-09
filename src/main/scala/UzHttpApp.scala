@@ -6,6 +6,7 @@ import caliban._
 import zio.App
 
 object UzHttpApp extends App {
+  ExampleApi.Test.test("a")
 
   override def run(args: List[String]) =
     (for {
@@ -17,7 +18,6 @@ object UzHttpApp extends App {
       result <- server.serve.useForever.as(
         0
       ) //.provideCustomLayer(ExampleService.make(sampleCharacters))
-    } yield result)
-      .exitCode
+    } yield result).exitCode
 
 }

@@ -24,6 +24,7 @@ lazy val root = (project in file("."))
     version := "0.0.1",
     // 2.13 has issues with graal atm
     //TODO: try inline on 2.13.2 with jdk 14
+    //scalacOptions += "-Ymacro-annotations",
     scalaVersion := "2.12.11",
     maxErrors := 3,
     libraryDependencies ++= Seq(
@@ -32,7 +33,8 @@ lazy val root = (project in file("."))
       "com.github.ghostdogpr" %% "caliban" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion,
-      "com.github.ghostdogpr" %% "caliban-client" % calibanVersion
+      "com.github.ghostdogpr" %% "caliban-client" % calibanVersion,
+      compilerPlugin(("org.scalamacros" % "paradise"  % "2.1.1") cross CrossVersion.full)
     ),
     graalLocalBuild := true,
     graalVMNativeImageGraalVersion := {

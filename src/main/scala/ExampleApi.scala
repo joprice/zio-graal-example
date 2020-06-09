@@ -16,8 +16,16 @@ import zio._
 import zio.clock.Clock
 import zio.console.Console
 import zio.duration._
+import zio.macros.accessible
 
 object ExampleApi extends GenericSchema[Any] {
+
+  @accessible
+  object Test {
+    trait Service {
+      def test(i: String): Task[Int]
+    }
+  }
 
   case class UserSimilarArgs(limit: Int)
   case class PostSimilarArgs(limit: Int, offset: Option[Int])
