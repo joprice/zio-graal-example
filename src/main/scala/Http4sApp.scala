@@ -7,7 +7,6 @@ import org.http4s.StaticFile
 import org.http4s.server.Router
 import org.http4s.server.blaze.BlazeServerBuilder
 import org.http4s.server.middleware.CORS
-import zio.console.putStrLn
 import zio.{ZEnv, ZIO}
 import zio.interop.catz._
 import zio._
@@ -17,7 +16,7 @@ import scala.concurrent.ExecutionContext
 
 object Http4sApp extends CatsApp {
   type ExampleTask[A] = RIO[ZEnv, A]
-  override def run(args: List[String]): ZIO[ZEnv, Nothing, Int] =
+  override def run(args: List[String]) =
     (for {
       blocker <- ZIO
         .access[Blocking](_.get.blockingExecutor.asEC)
@@ -39,7 +38,8 @@ object Http4sApp extends CatsApp {
         .resource
         .toManaged
         .useForever
-        .as(0)
-    } yield result).catchAll(err => putStrLn(err.toString).as(1))
+        .as(())
+    } yield result)
+    .exitCode
 
 }

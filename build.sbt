@@ -1,5 +1,5 @@
-val zioVersion    = "1.0.0-RC18-2"
-val calibanVersion = "0.7.7"
+val zioVersion    = "1.0.0-RC20"
+val calibanVersion = "0.8.1"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -28,6 +28,7 @@ lazy val root = (project in file("."))
     maxErrors := 3,
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % zioVersion,
+      "dev.zio" %% "zio-macros" % zioVersion,
       "com.github.ghostdogpr" %% "caliban" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion,
