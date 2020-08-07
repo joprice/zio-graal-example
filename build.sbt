@@ -6,6 +6,15 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 
 lazy val graalLocalBuild = settingKey[Boolean]("Whether to build locally or with docker")
 
+lazy val streams = project
+  .settings(
+    scalaVersion := "2.12.11",
+    libraryDependencies ++= Seq(
+      "dev.zio" %% "zio" % zioVersion,
+      "dev.zio" %% "zio-streams" % zioVersion
+    )
+  )
+
 lazy val client = project
   .settings(
     scalaVersion := "2.12.11",
@@ -17,7 +26,7 @@ lazy val client = project
   )
 
 lazy val root = (project in file("."))
-  .aggregate(client)
+  .aggregate(client, streams)
   .settings(
     organization := "com.joprice",
     name := "zio-graal-example",
