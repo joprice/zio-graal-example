@@ -1,11 +1,10 @@
 package com.joprice
 
 import java.nio.file.{Files, Paths}
-
 import zio._
 
 object PrintSchema extends App {
-  override def run(args: List[String]): ZIO[zio.ZEnv, Nothing, Int] =
+  override def run(args: List[String]): ZIO[zio.ZEnv, Nothing, ExitCode] =
     ZIO
       .effect(
         Files.write(
@@ -13,6 +12,6 @@ object PrintSchema extends App {
           ExampleApi.api.render.getBytes("UTF-8")
         )
       )
-      .as(0)
+      .as(ExitCode.success)
       .orDie
 }
