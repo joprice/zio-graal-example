@@ -38,6 +38,7 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % zioVersion,
       "com.github.ghostdogpr" %% "caliban" % calibanVersion,
+      // this was removed in the latest version
       //"com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-client" % calibanVersion,
@@ -60,7 +61,6 @@ lazy val root = (project in file("."))
       "--initialize-at-build-time=scala.runtime.Statics$VM",
       "--allow-incomplete-classpath",
       s"-H:ResourceConfigurationFiles=${(resourceDirectory in GraalVMNativeImage).value / "resources-config.json"}"
-      //"-H:ReflectionConfigurationFiles=/opt/graalvm/stage/resources/reflection.json"
     ) ++ {
       if (scala.util.Properties.isMac)
         Seq.empty
