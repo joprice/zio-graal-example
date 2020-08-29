@@ -1,5 +1,6 @@
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.3.4")
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.7")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.13")
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.7.0")
 addSbtPlugin("org.duhemm" % "sbt-errors-summary" % "0.6.3")
 addSbtPlugin("com.github.ghostdogpr" % "caliban-codegen-sbt" % "0.7.6")
+addSbtPlugin("org.scalameta" % "sbt-native-image" % "0.1.2")
