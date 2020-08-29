@@ -1,5 +1,5 @@
-val zioVersion    = "1.0.0"
-val calibanVersion = "0.7.7"
+val zioVersion    = "1.0.1"
+val calibanVersion = "0.9.1"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -38,14 +38,14 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % zioVersion,
       "com.github.ghostdogpr" %% "caliban" % calibanVersion,
-      "com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
+      //"com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-client" % calibanVersion
     ),
     graalLocalBuild := true,
     graalVMNativeImageGraalVersion := {
       if (graalLocalBuild.value) None
-      else Some("20.0.0")
+      else Some("20.2.0")
     },
     graalVMNativeImageCommand :=
       sys.env.get("GRAAL_NATIVE_IMAGE")

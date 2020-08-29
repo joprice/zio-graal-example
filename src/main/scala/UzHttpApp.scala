@@ -1,3 +1,4 @@
+/*
 package com.joprice
 
 import java.net.InetSocketAddress
@@ -22,3 +23,4 @@ object UzHttpApp extends App {
       .as(ExitCode.failure)
 
 }
+ */
