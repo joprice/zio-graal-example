@@ -40,7 +40,8 @@ lazy val root = (project in file("."))
       "com.github.ghostdogpr" %% "caliban" % calibanVersion,
       //"com.github.ghostdogpr" %% "caliban-uzhttp" % calibanVersion,
       "com.github.ghostdogpr" %% "caliban-http4s" % calibanVersion,
-      "com.github.ghostdogpr" %% "caliban-client" % calibanVersion
+      "com.github.ghostdogpr" %% "caliban-client" % calibanVersion,
+      "ch.qos.logback" % "logback-classic" % "1.2.3"
     ),
     graalLocalBuild := true,
     graalVMNativeImageGraalVersion := {
@@ -58,6 +59,7 @@ lazy val root = (project in file("."))
       "--initialize-at-build-time",
       "--initialize-at-build-time=scala.runtime.Statics$VM",
       "--allow-incomplete-classpath",
+      s"-H:ResourceConfigurationFiles=${(resourceDirectory in GraalVMNativeImage).value / "resources-config.json"}"
       //"-H:ReflectionConfigurationFiles=/opt/graalvm/stage/resources/reflection.json"
     ) ++ {
       if (scala.util.Properties.isMac)
@@ -65,8 +67,8 @@ lazy val root = (project in file("."))
       else
         Seq("--static")
     },
-    mainClass in Compile := Some("com.joprice.UzHttpApp")
-    //mainClass in Compile := Some("com.joprice.Http4sApp")
+    //mainClass in Compile := Some("com.joprice.UzHttpApp")
+    mainClass in Compile := Some("com.joprice.Http4sApp")
   )
     .enablePlugins(GraalVMNativeImagePlugin, CodegenPlugin)
 
