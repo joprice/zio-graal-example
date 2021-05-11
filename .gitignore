@@ -7,3 +7,4 @@ project/project
 .bloop/
 project/metals.sbt
 .ammonite/
+.bsp/
