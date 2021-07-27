@@ -48,7 +48,7 @@ object Http4sApp extends CatsApp {
         .as(ExitCode.success)
     } yield result)
       .catchAll(err =>
-        putStrLn(err.toString)
+        putStrLn(err.toString).orDie
           .as(ExitCode.failure)
       )
 

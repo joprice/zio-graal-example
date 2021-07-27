@@ -1,4 +1,4 @@
-val zioVersion = "1.0.3"
+val zioVersion = "1.0.10"
 val calibanVersion = "0.10.0"
 
 resolvers += Resolver.sonatypeRepo("releases")
